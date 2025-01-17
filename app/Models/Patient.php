@@ -27,4 +27,9 @@ class Patient extends Model
     {
         return $this->hasMany(PpAppointment::class);
     }
+
+    public function generalPractitioner()
+    {
+        return $this->belongsTo(User::class, 'gp_id')->where('role', 'general_practitioner');
+    }
 }
