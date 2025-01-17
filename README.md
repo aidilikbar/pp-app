@@ -97,7 +97,7 @@ To compile CSS or JS assets:
    npm run dev
    ```
 
-### **Project Structuren**
+### **Project Structure**
 - **Routes**: Located in routes/web.php.
 - **Controllers**: Application logic in app/Http/Controllers/.
 - **Models**: Database relationships in app/Models/.
@@ -116,4 +116,4 @@ This project is open-source and available under the MIT License.
 ### **Contact**
 For questions or contributions, contact Aidil Ikbar:
 - GitHub: https://github.com/aidilikbar
-- Email: your_email@example.com
+- Email: aidil@aidilikbar.com
