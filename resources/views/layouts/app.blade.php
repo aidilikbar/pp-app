@@ -12,6 +12,7 @@
         <div class="container">
             <h1 class="h3">Patient Portals</h1>
             <nav>
+                <a href="{{ route('homepage') }}" class="text-white me-3">Home</a>
                 <a href="{{ route('health-records.index') }}" class="text-white me-3">Health Records</a>
                 <a href="{{ route('appointments.index') }}" class="text-white">Appointments</a>
             </nav>
