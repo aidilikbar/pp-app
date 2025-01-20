@@ -11,13 +11,6 @@ Route::get('/', function () {
     return Auth::check() ? view('homepage') : redirect()->route('login');
 })->name('root');
 
-// Default Laravel Breeze Dashboard (optional if not needed)
-/*
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-*/
-
 // Feature Routes (Requires Authentication)
 Route::middleware('auth')->group(function () {
     // Homepage route for logged-in users
