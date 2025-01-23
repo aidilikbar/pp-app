@@ -11,4 +11,7 @@ export default defineConfig({
     server: {
         origin: 'https://pp-app-6wie9.ondigitalocean.app',
     },
+    build: {
+        manifest: true,
+    },
 });
