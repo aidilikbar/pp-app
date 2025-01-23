@@ -12,7 +12,13 @@ export default defineConfig({
         origin: 'https://pp-app-6wie9.ondigitalocean.app',
     },
     build: {
-        manifest: true,
         outDir: 'public/build',
+        manifest: true,
+        rollupOptions: {
+            output: {
+                assetFileNames: '[name].[ext]',
+                entryFileNames: '[name].js',
+            },
+        },
     },
 });
