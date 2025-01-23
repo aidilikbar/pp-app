@@ -8,4 +8,7 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        origin: 'https://pp-app-6wie9.ondigitalocean.app',
+    },
 });
