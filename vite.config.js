@@ -5,17 +5,17 @@ export default defineConfig({
     plugins: [
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.js'],
-            buildDirectory: 'build', // Ensures assets are built into the correct directory
+            buildDirectory: 'build',
         }),
     ],
     build: {
-        manifest: true, // Ensures the manifest file is generated
-        outDir: 'public/build', // Outputs directly to public/build/
+        manifest: true,
+        outDir: 'public/build',
         rollupOptions: {
             output: {
-                entryFileNames: 'app.js',
-                chunkFileNames: '[name].js',
-                assetFileNames: '[name].[ext]',
+                entryFileNames: 'assets/[name].[hash].js',
+                chunkFileNames: 'assets/[name].[hash].js',
+                assetFileNames: 'assets/[name].[hash].[ext]',
             },
         },
     },
