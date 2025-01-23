@@ -7,7 +7,7 @@
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('homepage') }}" class="flex items-center">
                         <i class="fas fa-hospital fa-2x text-blue-500 mr-2"></i>
-                        <span class="text-lg font-bold text-gray-800">Patient Portals</span>
+                        <span class="text-lg font-bold text-gray-800">PP Apps</span>
                     </a>
                 </div>
 
