@@ -3,10 +3,68 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use App\Models\PpAppointment;
 use App\Models\Patient;
 use App\Models\User;
 use App\Models\Appointment;
+
+/**
+ * @OA\Schema(
+ *     schema="Appointment",
+ *     type="object",
+ *     title="Appointment",
+ *     description="Appointment model",
+ *     required={"patient_id", "healthcare_professional_id", "appointment_date", "status"},
+ *     @OA\Property(
+ *         property="id",
+ *         type="integer",
+ *         description="ID of the appointment",
+ *         example=1
+ *     ),
+ *     @OA\Property(
+ *         property="patient_id",
+ *         type="integer",
+ *         description="ID of the patient",
+ *         example=42
+ *     ),
+ *     @OA\Property(
+ *         property="healthcare_professional_id",
+ *         type="integer",
+ *         description="ID of the healthcare professional",
+ *         example=7
+ *     ),
+ *     @OA\Property(
+ *         property="appointment_date",
+ *         type="string",
+ *         format="date-time",
+ *         description="Date and time of the appointment",
+ *         example="2025-01-24T14:30:00Z"
+ *     ),
+ *     @OA\Property(
+ *         property="status",
+ *         type="string",
+ *         description="Status of the appointment",
+ *         example="confirmed"
+ *     ),
+ *     @OA\Property(
+ *         property="created_at",
+ *         type="string",
+ *         format="date-time",
+ *         description="Timestamp when the appointment was created",
+ *         example="2025-01-23T14:30:00Z"
+ *     ),
+ *     @OA\Property(
+ *         property="updated_at",
+ *         type="string",
+ *         format="date-time",
+ *         description="Timestamp when the appointment was last updated",
+ *         example="2025-01-23T15:30:00Z"
+ *     )
+ * )
+ * @OA\Tag(
+ *     name="Appointments",
+ *     description="API Endpoints for Managing Appointments"
+ * )
+ */
 
 class AppointmentController extends Controller
 {
@@ -94,5 +152,127 @@ class AppointmentController extends Controller
         $appointment = PpAppointment::findOrFail($id);
         $appointment->delete();
         return redirect()->route('appointments.index')->with('success', 'Appointment deleted successfully.');
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/api/appointments",
+     *     tags={"Appointments"},
+     *     summary="Get list of appointments",
+     *     description="Returns list of appointments",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Appointment"))
+     *     )
+     * )
+     */
+    public function apiIndex()
+    {
+        $appointments = Appointment::all();
+        return response()->json($appointments, 200);
+    }
+
+    /**
+     * @OA\Post(
+     *     path="/api/appointments",
+     *     tags={"Appointments"},
+     *     summary="Create a new appointment",
+     *     description="Create a new appointment",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Appointment")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Appointment created",
+     *         @OA\JsonContent(ref="#/components/schemas/Appointment")
+     *     )
+     * )
+     */
+    public function apiStore(Request $request)
+    {
+        $appointment = Appointment::create($request->all());
+        return response()->json($appointment, 201);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/api/appointments/{id}",
+     *     tags={"Appointments"},
+     *     summary="Get appointment details",
+     *     description="Returns a single appointment",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/Appointment")
+     *     )
+     * )
+     */
+    public function apiShow($id)
+    {
+        $appointment = Appointment::findOrFail($id);
+        return response()->json($appointment, 200);
+    }
+
+    /**
+     * @OA\Put(
+     *     path="/api/appointments/{id}",
+     *     tags={"Appointments"},
+     *     summary="Update an appointment",
+     *     description="Update an appointment",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Appointment")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Appointment updated",
+     *         @OA\JsonContent(ref="#/components/schemas/Appointment")
+     *     )
+     * )
+     */
+    public function apiUpdate(Request $request, $id)
+    {
+        $appointment = Appointment::findOrFail($id);
+        $appointment->update($request->all());
+        return response()->json($appointment, 200);
+    }
+
+    /**
+     * @OA\Delete(
+     *     path="/api/appointments/{id}",
+     *     tags={"Appointments"},
+     *     summary="Delete an appointment",
+     *     description="Deletes an appointment",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="No content"
+     *     )
+     * )
+     */
+    public function apiDestroy($id)
+    {
+        $appointment = Appointment::findOrFail($id);
+        $appointment->delete();
+        return response()->json(null, 204);
     }
 }
